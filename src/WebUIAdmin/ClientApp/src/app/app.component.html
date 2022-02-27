@@ -1,0 +1,9 @@
+<div>
+  <ng-progress direction="ltr+" [speed]="200" [trickleSpeed]="300" [debounceTime]="0" [meteor]="true" [spinner]="true"
+    spinnerPosition="right" [thick]="true" [fixed]="true" [min]="8" [max]="100" ease="linear" [color]="'#00a4e0'"
+    started="onStartedProgressBar()" completed="onCompletedProgressBar()">
+  </ng-progress>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>
