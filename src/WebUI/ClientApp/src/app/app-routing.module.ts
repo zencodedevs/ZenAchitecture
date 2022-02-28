@@ -1,35 +1,25 @@
-/** core imports */
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
+import { CounterComponent } from './counter/counter.component';
+import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { HomeComponent } from './home/home.component';
+import { DevEnvGuard } from './nav-menu/dev-env.guard';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { TokenComponent } from './token/token.component';
 
-const routes: Routes = [
-  /** on empty route naviage to default page */
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'welcome',
-  },
-  /** welcome module */
-  {
-    path: 'welcome',
-    loadChildren: () => import('./welcome/welcome.module').then((m) => m.WelcomeModule),
-    // canActivate: [AuthorizeGuard]
-  },
-  /** on 404 redirect to default page */
-  {
-    path: '**',
-    pathMatch: 'full',
-    redirectTo: 'welcome',
-  },
+export const routes: Routes = [
+
+  { path: 'counter', component: CounterComponent },
+  { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'welcome', component: WelcomeComponent },
+  { path: 'token', component: TokenComponent, canActivate: [AuthorizeGuard, DevEnvGuard] },
+  { path: '**', pathMatch: 'full', redirectTo: 'welcome' },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, {
-      useHash: true /** use hash location strategy */
-    }),
-  ],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

@@ -30,11 +30,14 @@ namespace ZenAchitecture.Infrastructure.Identity
 
                 var tenantId = user.Id;
 
+                var userName = user.NormalizedUserName;
+
                 if (!string.IsNullOrEmpty(user.Id))
                 {
                     claims = new List<Claim>
                     {
-                        new Claim("x-tenant-id", tenantId.ToString())
+                        new Claim("x-tenant-id", tenantId.ToString()),
+                        new Claim("x-user-name", userName.ToString())
                     };
 
                     context.IssuedClaims.AddRange(claims);

@@ -1,5 +1,5 @@
 {
-  "name": "candidate-management.adminui",
+  "name": "zen-architecture.ui",
   "version": "0.0.13",
   "scripts": {
     "ng": "ng",
