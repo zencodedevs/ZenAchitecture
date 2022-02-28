@@ -1,5 +1,8 @@
+/** core imports */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+/** internal imports */
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';

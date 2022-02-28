@@ -1,3 +1,4 @@
+/** core imports */
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,13 +6,19 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+
+  /**
+   * Title  of app component
+   */
   title = 'app';
 
-  onStartedProgressBar(): void {
+  /**
+   * Determines whether started progress bar on
+   */
+  onStartedProgressBar(): void { }
 
-  }
-
-  onCompletedProgressBar(): void {
-
-  }
+  /**
+   * Determines whether completed progress bar on
+   */
+  onCompletedProgressBar(): void { }
 }
