@@ -71,7 +71,7 @@ export class AuthorizeService {
   //    redirect flow.
   public async signIn(state: any): Promise<IAuthenticationResult> {
     await this.ensureUserManagerInitialized();
-    let user: User = null;
+    let user: any = null;
     try {
       user = await this.userManager.signinSilent(this.createArguments());
       this.userSubject.next(user.profile);
@@ -110,7 +110,7 @@ export class AuthorizeService {
   public async completeSignIn(url: string): Promise<IAuthenticationResult> {
     try {
       await this.ensureUserManagerInitialized();
-      const user = await this.userManager.signinCallback(url);
+      const user: any = await this.userManager.signinCallback(url);
       this.userSubject.next(user && user.profile);
       return this.success(user && user.state);
     } catch (error) {
@@ -144,7 +144,7 @@ export class AuthorizeService {
   public async completeSignOut(url: string): Promise<IAuthenticationResult> {
     await this.ensureUserManagerInitialized();
     try {
-      const state = await this.userManager.signoutCallback(url);
+      const state: any = await this.userManager.signoutCallback(url);
       this.userSubject.next(null);
       return this.success(state && state.data);
     } catch (error) {
@@ -190,7 +190,7 @@ export class AuthorizeService {
     });
   }
 
-  private getUserFromStorage(): Observable<IUser> {
+  private getUserFromStorage(): Observable<any> {
     return from(this.ensureUserManagerInitialized())
       .pipe(
         mergeMap(() => this.userManager.getUser()),

@@ -22,6 +22,7 @@ namespace ZenAchitecture.Application.Account.Cities.Commands
         public async Task<int> Handle(DeleteCityCommand request, CancellationToken cancellationToken)
         {
             await _repository.DeleteAsync(request.Id, true, cancellationToken);
+
             return request.Id;
         }
     }

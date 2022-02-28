@@ -10,7 +10,7 @@ using ZenAchitecture.Infrastructure.Persistence;
 namespace ZenAchitecture.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220227165742_initial")]
+    [Migration("20220228064631_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -527,40 +527,12 @@ namespace ZenAchitecture.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cities");
-                });
-
-            modelBuilder.Entity("ZenAchitecture.Domain.Entities.Geography.CityTranslation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CoreId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Language")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CoreId");
-
-                    b.ToTable("CityTranslation");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -623,22 +595,6 @@ namespace ZenAchitecture.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Event");
-                });
-
-            modelBuilder.Entity("ZenAchitecture.Domain.Entities.Geography.CityTranslation", b =>
-                {
-                    b.HasOne("ZenAchitecture.Domain.Entities.Geography.City", "Core")
-                        .WithMany("Translations")
-                        .HasForeignKey("CoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Core");
-                });
-
-            modelBuilder.Entity("ZenAchitecture.Domain.Entities.Geography.City", b =>
-                {
-                    b.Navigation("Translations");
                 });
 #pragma warning restore 612, 618
         }

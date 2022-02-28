@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ZenAchitecture.Domain.Entities.Geography;
 using ZenAchitecture.Application.Account.Cities.Dtos;
-using System;
 
 namespace ZenAchitecture.Application.Account.Cities.Queries
 {
@@ -30,10 +29,7 @@ namespace ZenAchitecture.Application.Account.Cities.Queries
         {
             var query = await _repository.GetQueryableWithDataFilterAsync();
 
-            var entities = await query
-                .Include(x => x.Translations)
-                .OrderByDescending(x => x.Id)
-                .ToListAsync(cancellationToken);
+            var entities = await query.OrderByDescending(x => x.Id).ToListAsync(cancellationToken);
 
             return _mapper.Map<List<CityDto>>(entities);
 

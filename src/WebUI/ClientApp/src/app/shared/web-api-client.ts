@@ -17,7 +17,6 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 export interface ICityClient {
     readCity(): Observable<CityDto>;
     getCities(): Observable<CityDto[]>;
-    readCityByCountryId(countryId: number | undefined): Observable<CityDto[]>;
     createCity(command: CreateCityCommand): Observable<number>;
     updateCity(command: UpdateCityCommand): Observable<number>;
     deleteCity(id: number | undefined): Observable<number>;
@@ -111,62 +110,6 @@ export class CityClient implements ICityClient {
     }
 
     protected processGetCities(response: HttpResponseBase): Observable<CityDto[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(CityDto.fromJS(item));
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<CityDto[]>(<any>null);
-    }
-
-    readCityByCountryId(countryId: number | undefined): Observable<CityDto[]> {
-        let url_ = this.baseUrl + "/api/v1/City/ReadCityByCountryId?";
-        if (countryId === null)
-            throw new Error("The parameter 'countryId' cannot be null.");
-        else if (countryId !== undefined)
-            url_ += "CountryId=" + encodeURIComponent("" + countryId) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processReadCityByCountryId(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processReadCityByCountryId(<any>response_);
-                } catch (e) {
-                    return <Observable<CityDto[]>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<CityDto[]>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processReadCityByCountryId(response: HttpResponseBase): Observable<CityDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -583,7 +526,6 @@ export class PaymentClient implements IPaymentClient {
 export class CityDto implements ICityDto {
     id?: number;
     title?: string | undefined;
-    translations?: CityTranslationDto[] | undefined;
 
     constructor(data?: ICityDto) {
         if (data) {
@@ -598,11 +540,6 @@ export class CityDto implements ICityDto {
         if (_data) {
             this.id = _data["id"];
             this.title = _data["title"];
-            if (Array.isArray(_data["translations"])) {
-                this.translations = [] as any;
-                for (let item of _data["translations"])
-                    this.translations!.push(CityTranslationDto.fromJS(item));
-            }
         }
     }
 
@@ -617,11 +554,6 @@ export class CityDto implements ICityDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["title"] = this.title;
-        if (Array.isArray(this.translations)) {
-            data["translations"] = [];
-            for (let item of this.translations)
-                data["translations"].push(item.toJSON());
-        }
         return data; 
     }
 }
@@ -629,52 +561,10 @@ export class CityDto implements ICityDto {
 export interface ICityDto {
     id?: number;
     title?: string | undefined;
-    translations?: CityTranslationDto[] | undefined;
-}
-
-export class CityTranslationDto implements ICityTranslationDto {
-    language?: string | undefined;
-    name?: string | undefined;
-
-    constructor(data?: ICityTranslationDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.language = _data["language"];
-            this.name = _data["name"];
-        }
-    }
-
-    static fromJS(data: any): CityTranslationDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CityTranslationDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["language"] = this.language;
-        data["name"] = this.name;
-        return data; 
-    }
-}
-
-export interface ICityTranslationDto {
-    language?: string | undefined;
-    name?: string | undefined;
 }
 
 export class CreateCityCommand implements ICreateCityCommand {
-    countryId?: number;
-    translations?: CityTranslationDto[] | undefined;
+    name?: string | undefined;
 
     constructor(data?: ICreateCityCommand) {
         if (data) {
@@ -687,12 +577,7 @@ export class CreateCityCommand implements ICreateCityCommand {
 
     init(_data?: any) {
         if (_data) {
-            this.countryId = _data["countryId"];
-            if (Array.isArray(_data["translations"])) {
-                this.translations = [] as any;
-                for (let item of _data["translations"])
-                    this.translations!.push(CityTranslationDto.fromJS(item));
-            }
+            this.name = _data["name"];
         }
     }
 
@@ -705,24 +590,18 @@ export class CreateCityCommand implements ICreateCityCommand {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["countryId"] = this.countryId;
-        if (Array.isArray(this.translations)) {
-            data["translations"] = [];
-            for (let item of this.translations)
-                data["translations"].push(item.toJSON());
-        }
+        data["name"] = this.name;
         return data; 
     }
 }
 
 export interface ICreateCityCommand {
-    countryId?: number;
-    translations?: CityTranslationDto[] | undefined;
+    name?: string | undefined;
 }
 
 export class UpdateCityCommand implements IUpdateCityCommand {
     id?: number;
-    translations?: CityTranslationDto[] | undefined;
+    name?: string | undefined;
 
     constructor(data?: IUpdateCityCommand) {
         if (data) {
@@ -736,11 +615,7 @@ export class UpdateCityCommand implements IUpdateCityCommand {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            if (Array.isArray(_data["translations"])) {
-                this.translations = [] as any;
-                for (let item of _data["translations"])
-                    this.translations!.push(CityTranslationDto.fromJS(item));
-            }
+            this.name = _data["name"];
         }
     }
 
@@ -754,18 +629,14 @@ export class UpdateCityCommand implements IUpdateCityCommand {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        if (Array.isArray(this.translations)) {
-            data["translations"] = [];
-            for (let item of this.translations)
-                data["translations"].push(item.toJSON());
-        }
+        data["name"] = this.name;
         return data; 
     }
 }
 
 export interface IUpdateCityCommand {
     id?: number;
-    translations?: CityTranslationDto[] | undefined;
+    name?: string | undefined;
 }
 
 export class PaymentResponse implements IPaymentResponse {

@@ -49,6 +49,8 @@ namespace ZenAchitecture.WebUI
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
                     await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
+
+                    await ApplicationDbContextSeed.SeedDefaultDataAsync(context);
                 }
                 catch (Exception ex)
                 {
@@ -71,7 +73,6 @@ namespace ZenAchitecture.WebUI
                     })
                 .ConfigureServices((hostContext, services) =>
                  {
-
                      // Add the required Quartz.NET services
                      services.AddQuartz(quartz =>
                      {
@@ -81,7 +82,6 @@ namespace ZenAchitecture.WebUI
                          // Register the job, loading the schedule from configuration
                          quartz.AddJobTrigger<EventProcessorQuartezService>(hostContext.Configuration);
                          quartz.AddJobTrigger<EventProcessorCleanerQuartezService>(hostContext.Configuration);
-
 
                      });
 

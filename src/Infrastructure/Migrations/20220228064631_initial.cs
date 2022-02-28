@@ -53,8 +53,7 @@ namespace ZenAchitecture.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CountryId = table.Column<int>(type: "int", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -288,27 +287,6 @@ namespace ZenAchitecture.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CityTranslation",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Language = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    CoreId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CityTranslation", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CityTranslation_Cities_CoreId",
-                        column: x => x.CoreId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "EventLogs",
                 columns: table => new
                 {
@@ -369,11 +347,6 @@ namespace ZenAchitecture.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CityTranslation_CoreId",
-                table: "CityTranslation",
-                column: "CoreId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DeviceCodes_DeviceCode",
                 table: "DeviceCodes",
                 column: "DeviceCode",
@@ -423,7 +396,7 @@ namespace ZenAchitecture.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CityTranslation");
+                name: "Cities");
 
             migrationBuilder.DropTable(
                 name: "DeviceCodes");
@@ -448,9 +421,6 @@ namespace ZenAchitecture.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Cities");
 
             migrationBuilder.DropTable(
                 name: "Events");

@@ -25,7 +25,8 @@ namespace ZenAchitecture.Application.Account.Cities.Queries
 
         public async Task<CityDto> Handle(GetCityQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _repository.FindAsync(request.Id, cancellationToken, p => p.Translations);
+            var entity = await _repository.FindAsync(request.Id, cancellationToken);
+
             return _mapper.Map<CityDto>(entity);
         }
     }

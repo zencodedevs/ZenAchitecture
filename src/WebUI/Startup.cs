@@ -106,7 +106,7 @@ namespace ZenAchitecture.WebUI
 
             services.AddOpenApiDocument(configure =>
             {
-                configure.Title = "WebUi Open API";
+                configure.Title = "ZenAchitecture Open API";
                 configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
                     Type = OpenApiSecuritySchemeType.ApiKey,

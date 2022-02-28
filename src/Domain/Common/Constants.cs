@@ -44,7 +44,8 @@ namespace ZenAchitecture.Domain.Common
 
         public struct Nlog
         {
-            public const string WebUiDbRegisterClause = "insert into \"Logs\"(\"When\",\"Message\",\"Level\",\"Exception\",\"Trace\",\"Logger\",\"Channel\")VALUES (now(),@msg,@level,@exception,@trace,@logger,'WebUI')";
+            //sql server signature
+            public const string WebUiDbRegisterClause = "insert into  Logs([When],[Message],[Level],[Exception],[Trace],[Logger],[Channel])VALUES (getdate(),@msg,@level,@exception,@trace,@logger,'WebUI')";
         }
 
         public static class NewtonsoftSerializer

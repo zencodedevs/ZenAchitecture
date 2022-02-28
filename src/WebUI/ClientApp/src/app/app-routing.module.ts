@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: 'welcome',
     loadChildren: () => import('./welcome/welcome.module').then((m) => m.WelcomeModule),
-    canActivate: [AuthorizeGuard]
+    // canActivate: [AuthorizeGuard]
   },
   /** on 404 redirect to default page */
   {

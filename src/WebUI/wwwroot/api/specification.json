@@ -2,7 +2,7 @@
   "x-generator": "NSwag v13.9.4.0 (NJsonSchema v10.3.1.0 (Newtonsoft.Json v13.0.0.0))",
   "openapi": "3.0.0",
   "info": {
-    "title": "WebUi Open API",
+    "title": "ZenAchitecture Open API",
     "version": "1.0.0"
   },
   "paths": {
@@ -33,12 +33,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/v1/City/GetCities": {
@@ -71,59 +66,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/v1/City/ReadCityByCountryId": {
-      "get": {
-        "tags": [
-          "City"
-        ],
-        "operationId": "City_ReadCityByCountryId",
-        "parameters": [
-          {
-            "name": "CountryId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 1
-          },
-          {
-            "type": "string",
-            "name": "x-sys-language",
-            "in": "header",
-            "style": "simple",
-            "description": "System language indicator",
-            "default": "en-US"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CityDto"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/v1/City/CreateCity": {
@@ -166,12 +109,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
+        }
       }
     },
     "/api/v1/City/UpdateCity": {
@@ -482,27 +420,6 @@
           "title": {
             "type": "string",
             "nullable": true
-          },
-          "translations": {
-            "type": "array",
-            "nullable": true,
-            "items": {
-              "$ref": "#/components/schemas/CityTranslationDto"
-            }
-          }
-        }
-      },
-      "CityTranslationDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "language": {
-            "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
           }
         }
       },
@@ -510,16 +427,9 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "countryId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "translations": {
-            "type": "array",
-            "nullable": true,
-            "items": {
-              "$ref": "#/components/schemas/CityTranslationDto"
-            }
+          "name": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -531,12 +441,9 @@
             "type": "integer",
             "format": "int32"
           },
-          "translations": {
-            "type": "array",
-            "nullable": true,
-            "items": {
-              "$ref": "#/components/schemas/CityTranslationDto"
-            }
+          "name": {
+            "type": "string",
+            "nullable": true
           }
         }
       },

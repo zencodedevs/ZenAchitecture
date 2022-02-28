@@ -6,13 +6,22 @@ using ZenAchitecture.Application.Account.Cities.Queries;
 using ZenAchitecture.Application.Account.Cities.Commands;
 using Zen.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace ZenAchitecture.WebUI.Controllers.V1
 {
-    [Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class CityController : ZenController
     {
+        public CityController(ILogger<CityController> logger)
+        {
+            logger.LogInformation("Test LogInformation");
+            logger.LogWarning("Test LogWarning");
+            logger.LogError("Test LogError");
+            logger.LogCritical("Test LogCritical");
+            logger.LogTrace("Test LogTrace");
+        }
+
         [HttpGet]
         [Route(nameof(ReadCity))]
         public async Task<CityDto> ReadCity() => await Mediator.Send(new GetCityQuery());
@@ -20,10 +29,6 @@ namespace ZenAchitecture.WebUI.Controllers.V1
         [HttpGet]
         [Route(nameof(GetCities))]
         public async Task<List<CityDto>> GetCities() => await Mediator.Send(new GetCitiesQuery());
-
-        [HttpGet]
-        [Route(nameof(ReadCityByCountryId))]
-        public async Task<List<CityDto>> ReadCityByCountryId(int CountryId) => await Mediator.Send(new GetCityByCountryIdQuery() { CountryId = CountryId });
 
         [HttpPost]
         [Route(nameof(CreateCity))]
