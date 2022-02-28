@@ -8,7 +8,7 @@ namespace ZenAchitecture.Application.Account.Cities.Commands
 {
     public class CreateCityCommand : IRequest<int>
     {
-      public string Name { get; set; }
+        public string Name { get; set; }
     }
 
     public class CreateCityCommandHandler : IRequestHandler<CreateCityCommand, int>
@@ -22,7 +22,9 @@ namespace ZenAchitecture.Application.Account.Cities.Commands
 
         public async Task<int> Handle(CreateCityCommand request, CancellationToken cancellationToken)
         {
-            return (await _repository.InsertAsync(entity: City.Create(request.Name), autoSave: true, cancellationToken: cancellationToken)).Id;
+            var city = new City();
+            city.Create(request.Name);
+            return (await _repository.InsertAsync(city, autoSave: true, cancellationToken: cancellationToken)).Id;
         }
     }
 }

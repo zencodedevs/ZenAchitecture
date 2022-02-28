@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using ZenAchitecture.Domain.Entities;
+using ZenAchitecture.Domain.Entities.Geography;
 
 namespace ZenAchitecture.Infrastructure.Persistence
 {
@@ -30,15 +31,15 @@ namespace ZenAchitecture.Infrastructure.Persistence
         {
             if (!dbContext.Cities.Any())
             {
-                await dbContext.Cities.AddAsync(Domain.Entities.Geography.City.Create("თბილისი"));
-                await dbContext.Cities.AddAsync(Domain.Entities.Geography.City.Create("რუსთავი"));
-                await dbContext.Cities.AddAsync(Domain.Entities.Geography.City.Create("თელავი"));
-                await dbContext.Cities.AddAsync(Domain.Entities.Geography.City.Create("ყვარელი"));
-                await dbContext.Cities.AddAsync(Domain.Entities.Geography.City.Create("ზესტაფონი"));
-                await dbContext.Cities.AddAsync(Domain.Entities.Geography.City.Create("ქუთაისი"));
-                await dbContext.Cities.AddAsync(Domain.Entities.Geography.City.Create("ცხინვალი"));
-                await dbContext.Cities.AddAsync(Domain.Entities.Geography.City.Create("სოხუმი"));
-                await dbContext.Cities.AddAsync(Domain.Entities.Geography.City.Create("ბათუმი"));
+                await dbContext.Cities.AddAsync(new City().Create("თბილისი"));
+                await dbContext.Cities.AddAsync(new City().Create("რუსთავი"));
+                await dbContext.Cities.AddAsync(new City().Create("თელავი"));
+                await dbContext.Cities.AddAsync(new City().Create("ყვარელი"));
+                await dbContext.Cities.AddAsync(new City().Create("ზესტაფონი"));
+                await dbContext.Cities.AddAsync(new City().Create("ქუთაისი"));
+                await dbContext.Cities.AddAsync(new City().Create("ცხინვალი"));
+                await dbContext.Cities.AddAsync(new City().Create("სოხუმი"));
+                await dbContext.Cities.AddAsync(new City().Create("ბათუმი"));
                 await dbContext.SaveChangesAsync();
             }
         }

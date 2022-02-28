@@ -33,7 +33,7 @@ namespace ZenAchitecture.WebUI.Controllers.V1
         public async Task<List<CityDto>> GetCities() => await Mediator.Send(new GetCitiesQuery());
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [Route(nameof(CreateCity))]
         public async Task<int> CreateCity(CreateCityCommand command) => await Mediator.Send(command);
 

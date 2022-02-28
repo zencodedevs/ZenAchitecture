@@ -1,16 +1,29 @@
-﻿using Zen.Domain.Entities.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Zen.Domain.Entities.Entity;
+using Zen.Domain.Events;
+using ZenAchitecture.Domain.Events;
 
 namespace ZenAchitecture.Domain.Entities.Geography
 {
-    public class City : Entity
+    public class City : Entity, IHasDomainEvent
     {
 
         public string Name { get; private set; }
 
-        public static City Create(string name) => new()
+        [NotMapped]
+        public List<DomainEvent> DomainEvents { get; set; }
+
+        public City Create(string name)
         {
-            Name = name?.Trim()
-        };
+            Name = name;
+            DomainEvents ??= new List<DomainEvent>();
+            DomainEvents.Add(new CityCreatedEvent(this, Guid.NewGuid()));
+            return this;
+        }
+
+
 
         public void UpdateInfo(string name) => Name = name;
 
