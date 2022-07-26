@@ -31,9 +31,12 @@
     <PackageReference Include="Twilio" Version="5.68.2" />
     <PackageReference Include="Zen.Application" Version="1.0.56" />
     <PackageReference Include="Zen.Common" Version="1.0.56" />
+    <PackageReference Include="Zen.SendGrid" Version="1.0.34" />
+    <PackageReference Include="Zen.SendGrid.Extensions.DependencyInjection" Version="1.0.34" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application.Shared\Application.Shared.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 

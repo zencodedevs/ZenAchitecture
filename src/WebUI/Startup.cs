@@ -1,10 +1,6 @@
-using Askmethat.Aspnet.JsonLocalizer.Localizer;
 using ZenAchitecture.Application;
-using ZenAchitecture.Application.Common.Localization;
 using ZenAchitecture.Domain;
-using ZenAchitecture.Domain.Common;
 using ZenAchitecture.Infrastructure;
-using ZenAchitecture.Infrastructure.Persistence;
 using ZenAchitecture.WebUI.CurrentTenantMiddlewares;
 using ZenAchitecture.WebUI.Filters;
 using ZenAchitecture.WebUI.Middlewares;
@@ -19,17 +15,17 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
 using NLog;
 using NSwag;
 using NSwag.Generation.Processors.Security;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.Json.Serialization;
+using ZenAchitecture.Domain.Shared.Common;
+using ZenAchitecture.Infrastructure.Shared.Persistence;
 
 namespace ZenAchitecture.WebUI
 {
@@ -121,15 +117,6 @@ namespace ZenAchitecture.WebUI
 
 
             #endregion Open api  
-
-            services.AddLocalization(o =>
-            {
-                // We will put our translations in a folder called Resources
-                o.ResourcesPath = "Resources";
-            });
-            services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
-            services.AddSingleton<IStringLocalizer, JsonStringLocalizer>();
-            CultureInfo.CurrentCulture = new CultureInfo(Constants.SystemCultureNames.Georgian);
 
             // TO DO
             services.AddCors(options =>

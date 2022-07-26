@@ -1,9 +1,9 @@
-﻿using ZenAchitecture.Domain.Common;
-using ZenAchitecture.WebUI.Extensions;
+﻿using ZenAchitecture.WebUI.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System.Globalization;
 using System.Threading.Tasks;
+using ZenAchitecture.Domain.Shared.Common;
 
 namespace ZenAchitecture.WebUI.Middlewares
 {

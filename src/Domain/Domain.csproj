@@ -16,4 +16,8 @@
     <PackageReference Include="Zen.MultiTenancy" Version="1.0.56" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Shared\Domain.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

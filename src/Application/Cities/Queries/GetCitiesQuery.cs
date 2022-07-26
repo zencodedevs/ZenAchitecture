@@ -6,8 +6,8 @@ using Zen.Domain.Interfaces;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using ZenAchitecture.Domain.Entities.Geography;
 using ZenAchitecture.Application.Account.Cities.Dtos;
+using ZenAchitecture.Domain.Shared.Entities.Geography;
 
 namespace ZenAchitecture.Application.Account.Cities.Queries
 {

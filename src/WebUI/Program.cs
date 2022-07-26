@@ -1,21 +1,19 @@
+using ZenAchitecture.Domain.Shared.Entities;
+using ZenAchitecture.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NLog.Web;
+using System;
+using System.Threading.Tasks;
+using ZenAchitecture.Infrastructure.Shared.Persistence;
+
 namespace ZenAchitecture.WebUI
 {
-    using ZenAchitecture.Domain.Entities;
-    using ZenAchitecture.Infrastructure.Persistence;
-    using ZenAchitecture.WebUI.Extensions;
-    using ZenAchitecture.WebUI.Services;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
-    using NLog.Web;
-    using Quartz;
-    using System;
-    using System.Threading.Tasks;
-
     public class Program
     {
         public async static Task Main(string[] args)
@@ -73,21 +71,7 @@ namespace ZenAchitecture.WebUI
                     })
                 .ConfigureServices((hostContext, services) =>
                  {
-                     // Add the required Quartz.NET services
-                     services.AddQuartz(quartz =>
-                     {
-                         // Use a Scoped container to create jobs. I'll touch on this later
-                         quartz.UseMicrosoftDependencyInjectionScopedJobFactory();
-
-                         // Register the job, loading the schedule from configuration
-                         quartz.AddJobTrigger<EventProcessorQuartezService>(hostContext.Configuration);
-                         quartz.AddJobTrigger<EventProcessorCleanerQuartezService>(hostContext.Configuration);
-
-                     });
-
-                     // Add the Quartz.NET hosted service
-
-                     services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+                      
 
                      // other config
                  })

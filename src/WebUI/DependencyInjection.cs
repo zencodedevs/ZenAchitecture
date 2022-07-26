@@ -1,10 +1,9 @@
 ﻿namespace ZenAchitecture.WebUI
 {
-    using ZenAchitecture.Domain.Interfaces;
     using ZenAchitecture.WebUI.Services;
     using Microsoft.Extensions.DependencyInjection;
-    using Zen.EventProcessor;
     using Zen.Mvc;
+    using ZenAchitecture.Domain.Shared.Interfaces;
 
     public static class DependencyInjection
     {
