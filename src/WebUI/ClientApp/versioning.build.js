@@ -13,13 +13,21 @@ const getNestedObject = (nestedObj, pathArr) => {
 }
 const relativePath = getNestedObject(angular, ['projects', defaultProject, 'architect', 'build', 'options', 'outputPath']); // to identify relative build path when angular make build
 buildPath += relativePath.replace(/[/]/g, '\\');
+
 var indexPath = __dirname + buildPath + '/' + 'index.html';
-console.log('Angular build path: ', __dirname, buildPath);
+indexPath = indexPath.split('\\').join('/');
+const ngBuildPath = (__dirname + buildPath).split('\\').join('/');
+console.log('Index path:', indexPath);
+console.log('Angular build path: ', ngBuildPath);
 console.log('Change by buildVersion: ', buildVersion);
 
 try {
-    fs.readdir(__dirname + buildPath, (err, files) => {
+    fs.readdir(ngBuildPath, (err, files) => {
         console.log('readdir');
+        console.log('ngBuildPath : ', ngBuildPath);
+        console.log('files :', files);
+        console.log('files json:', JSON.stringify(files));
+
         files.forEach(file => {
 
             if (file.match(/^(es2015-polyfills|main|polyfills|runtime|scripts|styles)\.[a-z0-9]+\.(js|css)$/)) { // regex is identified by build files generated
@@ -29,6 +37,8 @@ try {
                 changeIndex(currentPath, changePath);
             }
         });
+
+
     });
 } catch (error) {
     console.error('Error occurred when change files: ', error);
