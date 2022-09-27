@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ZenAchitecture.Application.Shared.Behaviours
+namespace ZenAchitecture.Application.Common.Behaviours
 {
     public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

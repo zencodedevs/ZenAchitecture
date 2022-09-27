@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zen.Common.Exception;
 
-namespace ZenAchitecture.Application.Shared.Behaviours
+namespace ZenAchitecture.Application.Common.Behaviours
 {
     public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
@@ -30,7 +30,7 @@ namespace ZenAchitecture.Application.Shared.Behaviours
             {
                 var requestName = typeof(TRequest).Name;
 
-                _logger.LogError(ex, "ZenAchitecture Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
+                _logger.LogError(ex, "ZenAchitecture Request: Unhandled Exception for Request {Name} {@Request} {@StackTrace}", requestName, request, ex.StackTrace);
 
                 throw;
             }

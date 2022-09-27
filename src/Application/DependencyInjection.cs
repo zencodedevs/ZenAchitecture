@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Zen.Application;
 using Application.Shared;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -16,7 +15,6 @@ namespace ZenAchitecture.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddApplicationShared(configuration);
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -25,10 +23,10 @@ namespace ZenAchitecture.Application
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
-
-
             services.TryAddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehaviour<,>));
             services.TryAddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+            services.TryAddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
+            services.TryAddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
 
             //app services
             services.AddTransient<IActivityService, ActivityService>();

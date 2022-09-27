@@ -8,7 +8,6 @@ using SendGrid.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Reflection;
 using Zen.Application;
-using ZenAchitecture.Application.Shared.Behaviours;
 using ZenAchitecture.Application.Shared.Localization;
 using ZenAchitecture.Domain.Shared.Common;
 
@@ -32,12 +31,7 @@ namespace Application.Shared
             services.TryAddTransient<IStringLocalizerFactory, JsonStringLocalizerFactory>();
             services.TryAddTransient<IStringLocalizer, JsonStringLocalizer>();
             CultureInfo.CurrentCulture = new CultureInfo(Constants.SystemCultureNames.Georgian);
-
-
-
-            services.TryAddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
-            services.TryAddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
-
+           
             //zen send grid
             services.AddSendGrid(options => { options.ApiKey = configuration["SendGrid:ApiKey"]; });
 
