@@ -17,5 +17,6 @@ namespace ZenAchitecture.WebUI.Services
         public string UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
 
+
     }
 }
