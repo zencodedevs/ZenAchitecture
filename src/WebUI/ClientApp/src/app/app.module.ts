@@ -10,8 +10,8 @@ import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { ToastrModule } from 'ngx-toastr';
 import { TranslateModule } from '@ngx-translate/core';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { ConfigurationModule } from 'zencode-configuration-manager';
+// import { ModalModule } from 'ngx-bootstrap/modal';
+import { ConfigurationModule } from 'zencode-configuration-audit';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -49,7 +49,7 @@ import {
     ApiAuthorizationModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ModalModule.forRoot(),
+    // ModalModule.forRoot(),
     NgProgressModule,
     NgProgressHttpModule,
     ToastrModule.forRoot(),

@@ -10,7 +10,7 @@ import { NgProgressHttpConfig, NG_PROGRESS_HTTP_CONFIG } from "ngx-progressbar/h
 
 /** internal imports */
 import { environment } from "src/environments/environment";
-import { CONFIGURATION } from "zencode-configuration-manager";
+import { CONFIGURATION } from "zencode-configuration-audit";
 import { AppErrorHandler } from "./app.error.handler";
 import { AuthInterceptor } from "./core/auth.interceptor";
 import { ServerSideValidationInterceptor } from "./core/server-side-val.interceptor";
