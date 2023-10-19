@@ -54,9 +54,6 @@ namespace ZenAchitecture.WebUI
 
             //set nlog connection string
             GlobalDiagnosticsContext.Set("connectionString", Configuration.GetConnectionString("DefaultConnection"));
-            //set nlog inster clause variable
-            LogManager.Configuration.Variables["registerClause"] = Constants.Nlog.WebUiDbRegisterClause;
-
           
             services.AddDomain();
             services.AddApplication(Configuration);
